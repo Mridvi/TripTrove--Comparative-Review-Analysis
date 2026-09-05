@@ -109,6 +109,15 @@ The comparative analysis component achieved **91.08% accuracy**, demonstrating t
 - **Real-Time Fake Review Detection** — Develop streaming-based monitoring to detect suspicious reviews as they are submitted.
 - **Improved NLP Models** — Enhance aspect and sentiment analysis using newer NLP and deep learning approaches.
 
+
+### Home Page
+![Fake review detection](images/fake review detection ss.png)
+
+### Fake Review Detection
+![Fake Review Detection](images/fake-review.png)
+
+### Hotel Comparison
+![Hotel Comparison](images/hotel-comparison.png)
   
 ## 📄 Research Paper
 
