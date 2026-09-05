@@ -37,18 +37,19 @@ Trip Trove uses TF-IDF with a Support Vector Machine (SVM) to classify reviews a
 
 
 ## 🛠️ Tech Stack
-Languages: Python, HTML, CSS, JavaScript
-Framework: Flask, Flask-SQLAlchemy
-ML/NLP: Scikit-learn, NLTK, TF-IDF, SVM
-Data & Visualization: Pandas, Matplotlib, Seaborn, WordCloud
-Web Scraping: BeautifulSoup, Requests
-Database: SQLite / SQLAlchemy
 
+- **Languages:** Python, HTML, CSS, JavaScript
+- **Framework:** Flask, Flask-SQLAlchemy
+- **ML/NLP:** Scikit-learn, NLTK, TF-IDF, SVM
+- **Data & Visualization:** Pandas, Matplotlib, Seaborn, WordCloud
+- **Web Scraping:** BeautifulSoup, Requests
+- **Database:** SQLite / SQLAlchemy
 
 ## ⚙️ Installation
 
+```bash
 git clone https://github.com/Mridvi/TripTrove--Comparative-Review-Analysis.git
-cd trip-trove
+cd TripTrove--Comparative-Review-Analysis
 pip install -r requirements.txt
 python app.py
 
