@@ -12,20 +12,20 @@ Trip Trove is an **ML/NLP-based web application** designed to help users make be
 - **Data Visualization** — Displays review insights through charts and visual summaries.
 
 
-📊 Dataset
+## 📊 Dataset
 
 The dataset contains 1,600 reviews from 20 hotels, consisting of 800 truthful and 800 deceptive reviews.
 
 Reviews are preprocessed using tokenization, stopword removal, and lemmatization.
 
 
-🤖 Machine Learning
+## 🤖 Machine Learning
 
 Trip Trove uses TF-IDF with a Support Vector Machine (SVM) to classify reviews as deceptive or truthful.
 
 
 
-📈 Performance
+## 📈 Performance
 
 | Metric        |      Score |
 | ------------- | ---------: |
@@ -36,7 +36,7 @@ Trip Trove uses TF-IDF with a Support Vector Machine (SVM) to classify reviews a
 
 
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 Languages: Python, HTML, CSS, JavaScript
 Framework: Flask, Flask-SQLAlchemy
 ML/NLP: Scikit-learn, NLTK, TF-IDF, SVM
@@ -45,7 +45,7 @@ Web Scraping: BeautifulSoup, Requests
 Database: SQLite / SQLAlchemy
 
 
-⚙️ Installation
+## ⚙️ Installation
 
 git clone https://github.com/Mridvi/TripTrove--Comparative-Review-Analysis.git
 cd trip-trove
@@ -53,19 +53,19 @@ pip install -r requirements.txt
 python app.py
 
 
-📈 Results
+## 📈 Results
 
 The fake-review detection model achieved 90.54% accuracy, while the comparative analysis achieved 91.08% accuracy.
 
 
-⚠️ Limitations
+## ⚠️ Limitations
 
 The system may require updates when review sources, languages, or hotel-related aspects change.
 
 Scaling the system for real-time analysis can also increase computational requirements.
 
 
-🔮 Future Improvements
+## 🔮 Future Improvements
 Real-time fake review detection
 Reviewer behavior analysis
 Interactive hotel maps
@@ -73,7 +73,7 @@ Improved aspect and sentiment analysis
 More advanced recommendation capabilities
 
 
-📄 Research Paper
+## 📄 Research Paper
 
 “Trip Trove: Comparative Review Analysis”
 
