@@ -1,4 +1,4 @@
-Trip Trove — Hotel Review Analysis
+##**Trip Trove — Hotel Review Analysis**
 
 Trip Trove is an ML/NLP-based web application designed to help users make better hotel decisions by analyzing online hotel reviews.
 
