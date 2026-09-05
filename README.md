@@ -44,7 +44,8 @@ Trip Trove uses TF-IDF with a Support Vector Machine (SVM) to classify reviews a
 - **Data & Visualization:** Pandas, Matplotlib, Seaborn, WordCloud
 - **Web Scraping:** BeautifulSoup, Requests
 - **Database:** SQLite / SQLAlchemy
-
+  
+```markdown
 ## ⚙️ Installation
 
 ```bash
