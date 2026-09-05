@@ -1,6 +1,12 @@
 # 🏨 Trip Trove — Hotel Review Analysis
 
-Trip Trove is an **ML/NLP-based web application** designed to help users make better hotel decisions by analyzing online hotel reviews.
+## 📘 Abstract
+
+**Trip Trove** is a **machine learning** and **natural language processing** -based web application developed to help users make informed hotel booking decisions by analyzing large collections of online hotel reviews. Since online reviews can contain misleading or deceptive content, the project focuses on identifying fake reviews while extracting meaningful insights from genuine customer feedback.
+The system uses NLP techniques such as HTML and special-character removal, tokenization, lowercasing, stopword removal, and lemmatization to preprocess hotel reviews. **TF-IDF** is used to convert reviews into numerical features, which are then classified using an **SVM** model for fake review detection.
+Beyond **fake review detection**, Trip Trove analyzes genuine reviews to identify opinions on aspects such as cleanliness, comfort, location, staff, and price. It provides **review summaries**, sentiment insights, **hotel comparisons**, ratings, **visualizations**, and **recommendations** to make hotel reviews easier to understand.
+
+
 
 ## 🚀 Features
 
