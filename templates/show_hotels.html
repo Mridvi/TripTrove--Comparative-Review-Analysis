@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotels in {{ location }}</title>
+</head>
+<body>
+    <h1>Hotels in {{ location }}</h1>
+
+    {% if hotels %}
+        <ul>
+            {% for hotel in hotels %}
+                <li>{{ hotel }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hotels found for this location.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,9 @@
+deceptive,hotel,polarity,source,text
+truthful,conrad,positive,TripAdvisor,"The hotel staff was incredibly friendly and helpful. The room was clean and spacious, and the location was perfect for exploring the city."
+truthful,conrad,positive,TripAdvisor,"This hotel exceeded my expectations in every way. The amenities were excellent, the service was impeccable, and I would highly recommend it to anyone looking for a great place to stay."
+truthful,conrad,negative,TripAdvisor,"Unfortunately, my stay at this hotel was disappointing. The room was not as clean as I would have liked, and the staff seemed overwhelmed and not very attentive."
+truthful,conrad,negative,TripAdvisor,"I had high hopes for this hotel, but it fell short. The facilities were outdated, the room was noisy, and overall, it was not a pleasant experience."
+deceptive,conrad,positive,TripAdvisor,"I was blown away by the luxury of this hotel! From the moment I arrived, I felt like royalty. The room was spacious and elegantly decorated, and the staff went above and beyond to make my stay unforgettable."
+deceptive,conrad,positive,TripAdvisor,"I couldn't believe my luck when I found this hotel! The location was perfect, the amenities were top-notch, and I felt like I was living in a dream. I will definitely be coming back!"
+deceptive,conrad,negative,TripAdvisor,"My experience at this hotel was a nightmare. The room was tiny and dirty, the staff were rude and unhelpful, and I couldn't wait to check out and leave."
+deceptive,conrad,negative,TripAdvisor,"I was extremely disappointed with my stay at this hotel. The facilities were outdated and poorly maintained, the service was terrible, and overall, it was a complete waste of money."

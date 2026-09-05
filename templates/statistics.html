@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Statistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            font-family: 'Dancing Script', cursive; /* Change font to Dancing Script */
+            margin: 0;
+            padding: 0;
+            background-color: #82D2D5;
+            color: #333;
+        }
+
+        header {
+            background-color: #1C3342;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #1C3342;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .statistics-header {
+            font-size: 24px;
+            margin-bottom: 90px;
+        }
+
+        .statistics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .statistics-table th, .statistics-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            background-color: white; /* Change cell background to white */
+        }
+
+        .statistics-table th {
+            background-color: #1C3342; /* Header background color */
+            color: white;
+        }
+
+        .graph-container {
+            text-align: center;
+            margin-top: 90px;
+        }
+
+        .graph-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            color: #82D2D5;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hotel Statistics</h1>
+    </header>
+    <main>
+        <div class="statistics-header">
+            <h2>Overall Statistics</h2>
+            {% if statistics_results %}
+                <table class="statistics-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            {% for hotel in selected_hotels %}
+                                <th>{{ hotel }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aspect in statistics_results[selected_hotels[0]].keys() %}
+                            <tr>
+                                <td>{{ aspect.capitalize() }}</td>
+                                {% for hotel in selected_hotels %}
+                                    <td>{{ statistics_results[hotel][aspect] }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No statistics available. Please select hotels to see their overall statistics.</p>
+            {% endif %}
+        </div>
+        <section>
+            <h2>Comparison Graph</h2>
+            <div class="graph-container">
+                <img src="data:image/png;base64,{{ comparison_graph }}" alt="Comparison Graph">
+            </div>
+        </section>
+
+        <div class="statistics-header">
+            <h2>Hotel Summaries</h2>
+            {% if hotel_summaries %}
+                <table class="statistics-table">
+                    <thead>
+                        <tr>
+                            <th>Hotel</th>
+                            <th>Summary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hotel in selected_hotels %}
+                            <tr>
+                                <td>{{ hotel }}</td>
+                                <td>{{ hotel_summaries[hotel] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No hotel summaries available.</p>
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+        Trip Trove © 2024
+    </footer>
+</body>
+</html>

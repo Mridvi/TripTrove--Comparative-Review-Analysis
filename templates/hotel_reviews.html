@@ -1,0 +1,1031 @@
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Reviews</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #DAE4E8;
+    color: #333;
+}
+
+header {
+    background-color: #82D2D5;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #82D2D5;
+    padding: 1px 0;
+}
+
+.navbar-brand {
+    float: left;
+    display: block;
+    color: #1C3342;
+    text-align: center;
+    padding: 8px 10px;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+main {
+    padding: 20px;
+}
+
+.form-section {
+    background-color: #1C3342;
+    color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #1C3342;
+    border-radius: 5px;
+    resize: none;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #82D2D5;
+    color: #1C3342;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #a571e1;
+}
+
+#result {
+    margin-top: 20px;
+}
+
+footer {
+    background-color: #82D2D5;
+    color: #1C3342;
+    padding: 10px 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.link-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hotel {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hotel img {
+    max-width: 150px; /* Adjust this value to the desired image width */
+    margin-right: 20px; /* Adds some space between the image and the hotel name */
+    border-radius: 6px;
+    float: left; /* You can remove this if you're using flexbox as shown above */
+}
+
+.hotel h2 {
+    margin: 0;
+}
+
+.hotel h2 a {
+    color: #1C3342;  /* Change link color */
+    text-decoration: none;  /* Remove underline */
+}
+
+.hotel h2 a:hover {
+    color: #8b8bcf;  /* Change link color on hover */
+}
+
+</style>
+<body>
+    <header>
+        <div class="navbar">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+                 <h3>Trip Trove</h3>
+            </a>
+            <a class="navbar-brand" href="#">
+              
+                
+                <h3> Trip Trove - Hotel Reviews </h3>
+            </a>
+            
+        </div>
+    </header>
+    <div id="hotel_list">
+        {% for hotel in hotel_reviews.keys() %}
+        <div class="hotel">
+            <img src="{{ url_for('static', filename='img/' + hotel|lower|replace(' ', '_') + '.jpg') }}" alt="{{ hotel }}">
+            <h2><a href="/reviews/{{ hotel }}">{{ hotel }}</a></h2>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>   PREVIOUS -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Reviews</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #DAE4E8;
+            color: #333;
+        }
+
+        header {
+            font-family: 'Dancing Script', cursive;
+            background-color: #82D2D5;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #82D2D5;
+            padding: 1px 0;
+        }
+
+        .navbar-brand {
+            float: left;
+            display: block;
+            color: #1C3342;
+            text-align: center;
+            padding: 8px 10px;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .hotel {
+            display: block; /* Stack the hotels vertically */
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hotel img {
+            max-width: 150px;
+            margin-bottom: 10px; /* Adds space below the image */
+            border-radius: 6px;
+            display: block; /* Ensures image is centered */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hotel h2 {
+            text-align: center; /* Centers the hotel name */
+            margin: 0;
+        }
+
+        .hotel h2 a {
+            color: #1C3342;
+            text-decoration: none;
+        }
+
+        .hotel h2 a:hover {
+            color: #8b8bcf;
+        }
+
+        .comparison-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkbox {
+            margin-right: 10px;
+        }
+
+        .compare-btn {
+            padding: 10px 20px;
+            background-color: #82D2D5;
+            color: #1C3342;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px; /* Moves the button to the top of the form */
+        }
+
+        .compare-btn:hover {
+            background-color: #a571e1;
+        }
+
+        footer {
+            background-color: #82D2D5;
+            color: #1C3342;
+            padding: 10px 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+            </a>
+            <a class="navbar-brand" href="#">
+                <h3> Hotel Reviews </h3>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        
+        <form action="/compare_reviews" method="POST" class="comparison-form">
+           
+            <button type="submit" class="compare-btn">Compare Selected Hotels</button>
+
+            
+            <div id="hotel_list">
+                {% for hotel in hotel_reviews.keys() %}
+                <div class="hotel">
+                    <img src="{{ url_for('static', filename='img/' + hotel|lower|replace(' ', '_') + '.jpg') }}" alt="{{ hotel }}">
+                    <h2>
+                        <a href="/reviews/{{ hotel }}">{{ hotel }}</a>
+                    </h2>
+                
+                    <input type="checkbox" class="checkbox" name="selected_hotels" value="{{ hotel }}">
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        Trip Trove &copy; 2024
+    </footer>
+</body>
+</html> -->
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Reviews</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #DAE4E8;
+            color: #333;
+        }
+
+        header {
+            background-color: #82D2D5;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #82D2D5;
+            padding: 1px 0;
+        }
+
+        .navbar-brand {
+            float: left;
+            display: block;
+            color: #1C3342;
+            text-align: center;
+            padding: 8px 10px;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #82D2D5;
+            color: #1C3342;
+            padding: 10px 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .hotel {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hotel img {
+            max-width: 150px;
+            margin-right: 20px;
+            border-radius: 6px;
+        }
+
+        .hotel h2 {
+            margin: 0;
+        }
+
+        .hotel h2 a {
+            color: #1C3342;
+            text-decoration: none;
+        }
+
+        .hotel h2 a:hover {
+            color: #8b8bcf;
+        }
+
+        /* Button styles */
+        .compare-button {
+            background-color: #1C3342; /* Dark blue background */
+            color: #fff; /* White text */
+            padding: 10px 20px; /* Padding for a better size */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Font size */
+            transition: background-color 0.3s, transform 0.3s; /* Transition for hover effect */
+            margin-bottom: 20px; /* Margin below the button */
+            display: inline-block; /* Inline block for margin adjustments */
+        }
+
+        .compare-button:hover {
+            background-color: #8b8bcf; /* Lighter blue on hover */
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+
+        .compare-button:focus {
+            outline: none; /* Remove outline on focus */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a class="navbar-brand" href="#">
+                <h3>Trip Trove - Hotel Reviews</h3>
+            </a>
+        </div>
+    </header>
+    <main>
+        <form action="/compare" method="post">
+            <div id="hotel_list">
+                <button type="submit" class="compare-button">Compare</button>  
+                {% for hotel in hotel_reviews.keys() %}
+                <div class="hotel">
+                    <img src="{{ url_for('static', filename='img/' + hotel|lower|replace(' ', '_') + '.jpg') }}" alt="{{ hotel }}">
+                    <h2><a href="/reviews/{{ hotel }}">{{ hotel }}</a></h2>
+                    <input type="checkbox" name="hotel" value="{{ hotel }}">  
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+
+        <form action="{{ url_for('overall_statistics') }}" method="POST">
+            {% for hotel in hotel_reviews.keys() %}
+                <div>
+                    <input type="hidden" name="hotel" value="{{ hotel }}">
+                    <button type="submit">Overall Statistics for {{ hotel }}</button>
+                </div>
+            {% endfor %}
+        </form>
+        
+        
+
+        
+
+    </main>
+        
+    <footer>
+        Trip Trove © 2024
+    </footer>
+</body>
+</html>
+
+  -->
+
+
+<!-- 
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Reviews</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #DAE4E8;
+            color: #333;
+        }
+
+        header {
+            background-color: #82D2D5;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #82D2D5;
+            padding: 1px 0;
+        }
+
+        .navbar-brand {
+            float: left;
+            display: block;
+            color: #1C3342;
+            text-align: center;
+            padding: 8px 10px;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #82D2D5;
+            color: #1C3342;
+            padding: 10px 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .hotel {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hotel img {
+            max-width: 150px;
+            margin-right: 20px;
+            border-radius: 6px;
+        }
+
+        .hotel h2 {
+            margin: 0;
+        }
+
+        .hotel h2 a {
+            color: #1C3342;
+            text-decoration: none;
+        }
+
+        .hotel h2 a:hover {
+            color: #8b8bcf;
+        }
+
+        /* Button styles */
+        .compare-button, .stats-button {
+            background-color: #1C3342; /* Dark blue background */
+            color: #fff; /* White text */
+            padding: 10px 20px; /* Padding for a better size */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Font size */
+            transition: background-color 0.3s, transform 0.3s; /* Transition for hover effect */
+            margin-bottom: 20px; /* Margin below the button */
+            display: inline-block; /* Inline block for margin adjustments */
+        }
+
+        .compare-button:hover, .stats-button:hover {
+            background-color: #8b8bcf; /* Lighter blue on hover */
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+
+        .compare-button:focus, .stats-button:focus {
+            outline: none; /* Remove outline on focus */
+        }
+        
+        .stats-button {
+            display: none; /* Initially hidden */
+        }
+    </style>
+
+    <script>
+        function toggleStatsButton() {
+            const checkboxes = document.querySelectorAll('input[name="hotel"]:checked');
+            const statsButton = document.getElementById('overall-stats-button');
+            // Enable the stats button if exactly two hotels are checked
+            statsButton.style.display = checkboxes.length > 0 ? 'inline-block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a class="navbar-brand" href="#">
+                <h3>Trip Trove - Hotel Reviews</h3>
+            </a>
+        </div>
+    </header>
+    <main>
+        <form action="/compare" method="post">
+            <div id="hotel_list">
+                <button type="submit" class="compare-button">Compare</button>  
+                {% for hotel in hotel_reviews.keys() %}
+                <div class="hotel">
+                    <img src="{{ url_for('static', filename='img/' + hotel|lower|replace(' ', '_') + '.jpg') }}" alt="{{ hotel }}">
+                    <h2><a href="/reviews/{{ hotel }}">{{ hotel }}</a></h2>
+                    <input type="checkbox" name="hotel" value="{{ hotel }}" onchange="toggleStatsButton()">  
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="stats-button" id="overall-stats-button" formaction="{{ url_for('overall_statistics') }}">Overall Statistics</button>
+        </form>
+    </main>
+        
+    <footer>
+        Trip Trove © 2024
+    </footer>
+</body>
+</html> -->
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Reviews</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #DAE4E8;
+            color: #333;
+        }
+
+        header {
+            background-color: #82D2D5;
+            color: #fff;
+            padding: 20px;
+            display: flex; /* Added to make header a flex container */
+            justify-content: space-between; /* Space out logo and navbar brand */
+            align-items: center; /* Vertically center items */
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #82D2D5;
+            padding: 1px 0;
+            display: flex; /* Ensures that logo and navbar brand are aligned horizontally */
+            align-items: center; /* Vertically align items in the navbar */
+        }
+
+        .logo {
+            width: 60px; /* Adjust size to fit in the navbar */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 15px; /* Add some spacing between logo and heading */
+        }
+
+        .navbar-brand {
+            color: #1C3342;
+            text-align: center;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        footer {
+            background-color: #82D2D5;
+            color: #1C3342;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .hotel {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hotel img {
+            max-width: 150px;
+            margin-right: 20px;
+            border-radius: 6px;
+        }
+
+        .hotel h2 {
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .hotel h2 a {
+            color: #1C3342;
+            text-decoration: none;
+        }
+
+        .hotel h2 a:hover {
+            color: #8b8bcf;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .compare-button, .stats-button {
+            background-color: #1C3342;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .compare-button:hover, .stats-button:hover {
+            background-color: #8b8bcf;
+            transform: scale(1.05);
+        }
+
+        .compare-button:focus, .stats-button:focus {
+            outline: none;
+        }
+
+        .stats-button {
+            display: none;
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function toggleStatsButton() {
+            const checkboxes = document.querySelectorAll('input[name="hotel"]:checked');
+            const statsButton = document.getElementById('overall-stats-button');
+            statsButton.style.display = checkboxes.length > 0 ? 'inline-block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            
+            <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+            
+            
+                <h1>Hotels</h1>
+            
+        </div>
+    </header>
+    <main>
+        <form action="/compare" method="post">
+            <div id="hotel_list">
+                {% for hotel in hotel_reviews.keys() %}
+                <div class="hotel">
+                    <img src="{{ url_for('static', filename='img/' + hotel|lower|replace(' ', '_') + '.jpg') }}" alt="{{ hotel }}">
+                    <h2><a href="/reviews/{{ hotel }}">{{ hotel }}</a></h2>
+                    <input type="checkbox" name="hotel" value="{{ hotel }}" onchange="toggleStatsButton()">  
+                </div>
+                {% endfor %}
+            </div>
+            <div class="button-container">
+                <button type="submit" class="compare-button">Compare</button>  
+                <button type="submit" class="stats-button" id="overall-stats-button" formaction="{{ url_for('overall_statistics') }}">Overall Statistics</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        Trip Trove © 2024
+    </footer>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Reviews</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+    margin: 0; /* Remove default body margin to ensure navbar sticks at the top */
+    font-family: Arial, sans-serif;
+    background-color: #DAE4E8; /* Background for the page */
+    color: #333;
+}
+
+        /* Sticky Navbar */
+        .navbar {
+    position: sticky; /* Ensures the navbar stays at the top */
+    top: 0; /* Sticks the navbar to the top */
+    z-index: 1000; /* Keeps the navbar above other elements */
+    background: #82D2D5;  /* Semi-transparent background */
+    color: white;
+    display: flex; /* Flexbox for alignment */
+    justify-content: space-between; /* Space out elements */
+    align-items: center; /* Vertically center all items */
+    padding: 10px 20px; /* Adds padding around the navbar content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for better visibility */
+}
+
+.navbar .logo {
+    width: 100px; /* Reduce the size of the logo */
+    height: auto; /* Maintain the aspect ratio */
+    margin-right: 15px; /* Spacing between logo and text */
+}
+
+
+
+.navbar h1 {
+    font-size: 20px; /* Adjust font size for a more balanced navbar */
+    color: white;
+    margin: 0; /* Remove unnecessary margin */
+    position: absolute; /* Center title in the navbar */
+    left: 50%; /* Move it horizontally to the center */
+    transform: translateX(-50%); /* Correct centering */
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px; /* Add spacing between links */
+    margin-left: auto; /* Push links to the right */
+}
+
+
+        .navbar-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: #82D2D5;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .hotel {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hotel:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hotel img {
+            max-width: 150px;
+            margin-right: 20px;
+            border-radius: 6px;
+        }
+
+        .hotel h2 {
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .hotel h2 a {
+            color: #1C3342;
+            text-decoration: none;
+        }
+
+        .hotel h2 a:hover {
+            color: #8b8bcf;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .compare-button, .stats-button {
+            background-color: #1C3342;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .compare-button:hover, .stats-button:hover {
+            background-color: #8b8bcf;
+            transform: scale(1.05);
+        }
+
+        .compare-button:focus, .stats-button:focus {
+            outline: none;
+        }
+
+        .stats-button {
+            display: none;
+        }
+
+        footer {
+            background-color: #82D2D5;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #82D2D5;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hotel {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hotel img {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+
+    <script>
+        function toggleStatsButton() {
+            const checkboxes = document.querySelectorAll('input[name="hotel"]:checked');
+            const statsButton = document.getElementById('overall-stats-button');
+            statsButton.style.display = checkboxes.length > 0 ? 'inline-block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header>
+        <div class="navbar">
+            <!-- Logo -->
+            <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+            
+            <!-- Title -->
+            <h1>Hotels</h1>
+            
+            <!-- Navigation Links (Optional) -->
+            <div class="navbar-links">
+                <a href="#home" style="color: white; text-decoration: none;">Home</a>
+                <a href="#about" style="color: white; text-decoration: none;">About</a>
+                <a href="#contact" style="color: white; text-decoration: none;">Contact</a>
+            </div>
+        </div>
+    </header>
+    
+
+    <main>
+        <form action="/compare" method="post">
+            <div id="hotel_list">
+                {% for hotel in hotel_reviews.keys() %}
+                <div class="hotel">
+                    <img src="{{ url_for('static', filename='img/' + hotel|lower|replace(' ', '_') + '.jpg') }}" alt="{{ hotel }}">
+                    <h2><a href="/reviews/{{ hotel }}">{{ hotel }}</a></h2>
+                    <input type="checkbox" name="hotel" value="{{ hotel }}" onchange="toggleStatsButton()">  
+                </div>
+                {% endfor %}
+            </div>
+            <div class="button-container">
+                <button type="submit" class="compare-button">Compare</button>  
+                <button type="submit" class="stats-button" id="overall-stats-button" formaction="{{ url_for('overall_statistics') }}">Overall Statistics</button>
+            </div>
+        </form>
+    </main>
+
+    <footer id="footer">
+        Trip Trove © 2024 | <a href="mailto:support@triptrove.com">Contact Us</a>
+    </footer>
+</body>
+</html>

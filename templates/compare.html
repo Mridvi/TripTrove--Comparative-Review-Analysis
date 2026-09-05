@@ -1,0 +1,534 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparative Review Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #DAE4E8;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .comparison-result {
+            margin-top: 20px;
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #1C3342;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #82D2D5;
+            color: white;
+        }
+
+        footer {
+            background-color: #82D2D5;
+            color: #1C3342;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Comparative Review Analysis</h1>
+
+        {% if result %}
+        <div class="comparison-result">
+            <h2>Comparison Result:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>{{ hotel1 }}</th>
+                        <th>{{ hotel2 }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aspect, comparison in result.items() %}
+                    <tr>
+                        <td>{{ aspect }}</td>
+                        <td>{{ comparison.hotel1 }}</td>
+                        <td>{{ comparison.hotel2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No comparison results available. Please select hotels and try again.</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        Trip Trove &copy; 2024
+    </footer>
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #82D2D5; /* Match the background color */
+            color: #1C3342;
+        }
+        header {
+            background-color: #1C3342;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #1C3342;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            color: #d2d7db;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .navbar h2 {
+            flex: 1;
+            color:#82D2D5;
+            text-align: center;
+            margin: 0;
+            font-family: 'Dancing Script', cursive;
+        }
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            color: #82D2D5; /* Change text color to white for contrast */
+            font-size: 3em; /* Increase font size */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Darker shadow for better contrast */
+            background-color: rgba(28, 51, 66, 0.7); /* Semi-transparent background color */
+            padding: 10px; /* Add some padding for better appearance */
+}
+
+        h3 {
+            text-align: center;
+            font-weight: bold;
+            color: #1C3342;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #1C3342;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        td {
+            font-size: 1.1em;
+        }
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between each hotel chart block */
+            width: 80%;
+            margin: 0 auto;
+        }
+        .chart-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; /* Space between charts */
+        }
+        .charts img {
+            max-width: 300px; /* Adjust size of pie charts */
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Hotel Comparison</h2>
+        <div class="navbar">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+            </a>
+        </div>
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Aspect</th>
+                {% for hotel in selected_hotels %}
+                <th>{{ hotel }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Price</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['price'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Location</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['location'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Comfort</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['comfort'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Cleanliness</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['cleanliness'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Staff</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['staff'] }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <h3>Review Sentiment Distribution and Star Ratings</h3>
+
+    <div class="chart-container">
+        {% for hotel in selected_hotels %}
+            <div class="chart-item">
+                <h3>{{ hotel }}</h3>
+                <div class="charts">
+                    <img src="data:image/png;base64,{{ pie_charts[hotel] }}" alt="Pie chart for {{ hotel }}">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <form action="{{ url_for('overall_statistics') }}" method="POST">
+        <label for="hotel1">Select first hotel:</label>
+        <select id="hotel1" name="hotel1">
+            <option value="conrad">Conrad</option>
+            <option value="hyatt">Hyatt</option>
+            <option value="omni">Omni</option>
+            
+        </select>
+    
+        <label for="hotel2">Select second hotel:</label>
+        <select id="hotel2" name="hotel2">
+            <option value="conrad">Conrad</option>
+            <option value="hyatt">Hyatt</option>
+            <option value="omni">Omni</option>
+            
+        </select>
+    
+        <button type="submit">Overall Statistics</button>
+    </form>
+    
+    
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Hotel Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Dancing Script', cursive;
+            margin: 0;
+            padding: 0;
+            background-color: #82D2D5; /* Match the background color */
+            color: #1C3342;
+        }
+        header {
+            background-color: #1C3342;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #1C3342;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            color: #d2d7db;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .navbar h2 {
+            flex: 1;
+            color: #82D2D5;
+            text-align: center;
+            margin: 0;
+            font-family: 'Dancing Script', cursive;
+        }
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            color: #82D2D5; /* Change text color to white for contrast */
+            font-size: 3em; /* Increase font size */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Darker shadow for better contrast */
+            background-color: rgba(28, 51, 66, 0.7); /* Semi-transparent background color */
+            padding: 10px; /* Add some padding for better appearance */
+        }
+
+        h3 {
+            text-align: center;
+            font-weight: bold;
+            color: #1C3342;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #1C3342;
+            color: #fff;
+            text-transform: uppercase;
+            font-family: 'Dancing Script', cursive;
+        }
+        td {
+            font-size: 1.1em;
+            font-family: 'Dancing Script', cursive;
+        }
+        .chart-container {
+            display: flex;
+            /* flex-direction: column; */
+            gap: 20px; /* Space between each hotel chart block */
+            width: 80%;
+            margin: 0 auto;
+            overflow-x: auto; 
+        }
+        .chart-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; /* Space between charts */
+            max-width: 800px;
+            flex: 1;
+        }
+        .charts img {
+            max-width: 500px; /* Adjust size of pie charts */
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+            margin: 0 auto;
+        }
+        /* New styles for additional star ratings */
+        .additional-stars ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .additional-stars li {
+            margin-bottom: 5px;
+            font-size: 1.2em;
+            font-family: 'Dancing Script', cursive;
+        }
+        .star {
+            color: #FFD700; /* Gold color for stars */
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        
+        <div class="navbar">
+     
+            <h2>Hotel Comparison</h2>
+        </div>
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Aspect</th>
+                {% for hotel in selected_hotels %}
+                <th>{{ hotel.title() }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Price</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['price'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Location</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['location'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Comfort</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['comfort'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Cleanliness</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['cleanliness'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Staff</td>
+                {% for hotel in selected_hotels %}
+                <td>{{ comparison_table[hotel]['staff'] }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <h3>Review Sentiment Distribution and Star Ratings</h3>
+
+    <div class="chart-container">
+        {% for hotel in selected_hotels %}
+            <div class="chart-item">
+                <h3>{{ hotel.title() }}</h3>
+                <div class="charts">
+                    {% if pie_charts[hotel] %}
+                        <img src="data:image/png;base64,{{ pie_charts[hotel] }}" alt="Pie chart for {{ hotel }}">
+                    {% else %}
+                        <p>No pie chart available.</p>
+                    {% endif %}
+                </div>
+                <!-- Existing Star Ratings -->
+                {% if star_ratings[hotel] %}
+                    <div class="existing-stars">
+                        
+                    </div>
+                {% else %}
+                    <p>No star ratings available.</p>
+                {% endif %}
+                <!-- Additional Star Ratings -->
+                {% if additional_star_ratings[hotel] %}
+                    <div class="additional-stars">
+                        <h4>Overall Rating</h4>
+                        <ul>
+                            {% for aspect, stars in additional_star_ratings[hotel].items() %}
+                                <li>{{ aspect.capitalize() }}:
+                                    {% for i in range(stars) %}
+                                        <span class="star">★</span>
+                                    {% endfor %}
+                                    {% for i in range(5 - stars) %}
+                                        <span class="star">☆</span>
+                                    {% endfor %}
+                                    ({{ stars }}/5)
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <p>No additional star ratings available.</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Hotel Summary Section -->
+
+    
+</body>
+</html>

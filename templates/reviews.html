@@ -1,0 +1,524 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews for {{ hotel_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #82D2D5;
+    color: #1C3342;
+}
+
+h1 {
+    text-align: center;
+}
+
+#filters {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#filters select {
+    padding: 10px;
+    margin-right: 10px;
+    border: 2px solid #1C3342;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #1C3342;
+    font-size: 16px;
+}
+
+#reviews {
+    margin: 20px;
+}
+
+.review {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.review p {
+    margin: 0;
+}
+
+.review[data-deceptive="truthful"] {
+    border-left: 5px solid #2ECC71; /* Green for truthful */
+}
+
+.review[data-deceptive="deceptive"] {
+    border-left: 5px solid #E74C3C; /* Red for deceptive */
+}
+
+</style>
+<body>
+    <h1>Reviews for {{ hotel_name }}</h1>
+
+    
+     Filter dropdowns 
+    <div id="filters">
+        <select id="deceptive_filter">
+            <option value="">Deceptive Filter</option>
+            <option value="truthful">Truthful</option>
+            <option value="deceptive">Deceptive</option>
+        </select>
+        <select id="polarity_filter">
+            <option value="">Polarity Filter</option>
+            <option value="positive">Positive</option>
+            <option value="negative">Negative</option>
+        </select>
+    </div>
+    
+     Reviews 
+    <div id="reviews">
+        {% for review in reviews %}
+        <div class="review" data-deceptive="{{ review.deceptive }}" data-polarity="{{ review.polarity }}">
+            
+            <p><strong>Review:</strong> {{ review.text }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Filter reviews based on selected options
+            $("#deceptive_filter, #polarity_filter").change(function() {
+                var deceptive = $("#deceptive_filter").val().toLowerCase();
+                var polarity = $("#polarity_filter").val().toLowerCase();
+                
+                $(".review").hide();
+                $(".review").filter(function() {
+                    var matchesDeceptive = deceptive ? $(this).data('deceptive') === deceptive : true;
+                    var matchesPolarity = polarity ? $(this).data('polarity') === polarity : true;
+                    return matchesDeceptive && matchesPolarity;
+                }).show();
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews for {{ hotel_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            background-color: #82D2D5;
+            color: #1C3342;
+        }
+
+        header {
+            background-color: #1C3342;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative; /* Change to relative or static */
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Add styles for the logo */
+        .logo {
+            width: 80px; /* Reduce width */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px; /* Add some spacing */
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .navbar a.tripadvisor {
+            background-color: #309429;
+        }
+
+        .navbar a.makemytrip {
+            background-color: #f0662b;
+        }
+
+        .navbar a:hover {
+            opacity: 0.8;
+        }
+
+        .filters {
+            display: flex;
+            align-items: center;
+        }
+
+        .filters select {
+            padding: 10px;
+            margin: 0 10px;
+            border: 2px solid #1C3342;
+            border-radius: 5px;
+            background-color: #009688;
+            color: #d7dcdf;
+            font-size: 16px;
+        }
+
+        #summarize-button {
+            padding: 10px;
+            background-color: #009688;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #heading {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #reviews {
+            margin: 20px;
+        }
+
+        .review {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review p {
+            margin: 0;
+        }
+
+        .review[data-deceptive="truthful"] {
+            border-left: 5px solid #2ECC71; /* Green for truthful */
+        }
+
+        .review[data-deceptive="deceptive"] {
+            border-left: 5px solid #E74C3C; /* Red for deceptive */
+        }
+
+        #summary {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+          
+            <a href="https://www.tripadvisor.com/Search?q={{ hotel_name }}" target="_blank" class="tripadvisor">View on TripAdvisor</a>
+            <a href="https://www.makemytrip.com/hotels/{{ hotel_name | replace(' ', '-') }}" target="_blank" class="makemytrip">View on MakeMyTrip</a>
+        </div>
+
+        <div id="heading">Reviews for {{ hotel_name }}</div>
+
+      
+        <div class="filters">
+            <select id="deceptive_filter">
+                <option value="truthful">Truthful</option>
+                <option value="deceptive">Deceptive</option>
+            </select>
+            <select id="polarity_filter">
+                <option value="positive">Positive</option>
+                <option value="negative">Negative</option>
+            </select>
+            <form action="/summarize_reviews/{{ hotel_name }}" method="get">
+                <button type="submit" id="summarize-button">Summarize Reviews</button>
+            </form>
+        </div>
+    </header>
+    
+   
+    <div id="reviews">
+        {% for review in reviews %}
+        <div class="review" data-deceptive="{{ review.deceptive }}" data-polarity="{{ review.polarity }}">
+            <p><strong>Review:</strong> {{ review.text }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+   
+    <div id="summary"></div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Filter reviews based on selected options
+            $("#deceptive_filter, #polarity_filter").change(function() {
+                var deceptive = $("#deceptive_filter").val().toLowerCase();
+                var polarity = $("#polarity_filter").val().toLowerCase();
+                
+                $(".review").hide();
+                $(".review").filter(function() {
+                    var matchesDeceptive = deceptive ? $(this).data('deceptive') === deceptive : true;
+                    var matchesPolarity = polarity ? $(this).data('polarity') === polarity : true;
+                    return matchesDeceptive && matchesPolarity;
+                }).show();
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews for {{ hotel_name }}</title>
+    <style>
+        /* General Styling */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f8fb;
+            color: #1C3342;
+        }
+
+        /* Header Section */
+        header {
+    display: flex;
+    align-items: center; /* Vertically aligns items */
+    justify-content: space-between; /* Spreads items evenly */
+    padding: 10px 20px;
+    background-color: #82D2D5;  
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 60px; /* Optional: Ensures consistent navbar height */
+}
+
+.navbar-heading {
+    font-size: 18px; /* Slightly smaller for better alignment */
+    margin-left: 10px;
+    flex-grow: 1; /* Allows the heading to adjust dynamically */
+    text-align: center;
+}
+
+
+
+        .logo {
+    max-height: 90px; /* Set a maximum height */
+    width: 90px; /* Maintain the aspect ratio */
+    margin-right: 15px; /* Add spacing between the logo and other navbar elements */
+    display: block; /* Ensure it's treated as an inline block for better alignment */
+}
+
+
+   
+
+        /* Reviews Section */
+        #reviews {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px;
+            padding: 10px;
+        }
+
+        .review-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .review-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .review-card[data-deceptive="truthful"]::before {
+            background-color: #2ECC71;
+        }
+
+        .review-card[data-deceptive="deceptive"]::before {
+            background-color: #E74C3C;
+        }
+
+        .review-content {
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limit to 3 lines */
+            -webkit-box-orient: vertical;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 10px;
+            color: #009688;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Summarize Button and Filters */
+        .filters {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .filters select, .filters button {
+            padding: 10px 15px;
+            margin: 0 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .filters select {
+            background-color: #009688;
+            color: white;
+        }
+
+        .filters button {
+            background-color: #FF9800;
+            color: white;
+        }
+        #summarize-button {
+            padding: 10px;
+            background-color: #009688;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+        <h1 class="navbar-heading">Reviews</h1>
+        
+    </header>
+
+    <!-- Filters Section -->
+    <div class="filters">
+        <select id="deceptive_filter">
+            <!-- <option value="all">All</option> -->
+            <option value="truthful">Truthful</option>
+            <option value="deceptive">Deceptive</option>
+        </select>
+        <select id="polarity_filter">
+            <!-- <option value="all">All</option> -->
+            <option value="positive">Positive</option>
+            <option value="negative">Negative</option>
+        </select>
+        <form action="/summarize_reviews/{{ hotel_name }}" method="get">
+            <button type="submit" id="summarize-button">Summarize Reviews</button>
+        </form>
+    </div>
+
+    <!-- Reviews Section -->
+    <div id="reviews">
+        {% for review in reviews %}
+        <div class="review-card" data-deceptive="{{ review.deceptive }}" data-polarity="{{ review.polarity }}">
+            <p class="review-content">{{ review.text }}</p>
+            <span class="read-more">Read More</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Handle "Read More" functionality
+            document.querySelectorAll(".read-more").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const reviewContent = this.previousElementSibling; // Selects the <p> tag
+                    reviewContent.style.webkitLineClamp = "unset"; // Expands to full content
+                    reviewContent.style.display = "block";
+                    this.style.display = "none"; // Hide the "Read More" button
+                });
+            });
+
+            // Filter reviews based on dropdown selection
+            document.querySelectorAll("#deceptive_filter, #polarity_filter").forEach(function (filter) {
+                filter.addEventListener("change", function () {
+                    const deceptiveFilter = document.querySelector("#deceptive_filter").value;
+                    const polarityFilter = document.querySelector("#polarity_filter").value;
+
+                    document.querySelectorAll(".review-card").forEach(function (card) {
+                        const deceptiveMatch =
+                            deceptiveFilter === "all" ||
+                            card.dataset.deceptive === deceptiveFilter;
+
+                        const polarityMatch =
+                            polarityFilter === "all" ||
+                            card.dataset.polarity === polarityFilter;
+
+                        if (deceptiveMatch && polarityMatch) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

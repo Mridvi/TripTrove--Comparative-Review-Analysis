@@ -1,0 +1,275 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary for {{ hotel_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #82D2D5; /* Match the background color from the second page */
+            color: #1C3342;
+        }
+    
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            color: #000; /* Black text for the title */
+        }
+    
+        #summary {
+            margin: 50px auto; /* Center the summary */
+            padding: 20px;
+            background-color: #fff; /* White background for the content */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Lighter shadow for consistency */
+            max-width: 1200px; /* Increase the max-width for an even wider box */
+            width: 95%; /* Allow the box to take up 95% of the viewport width */
+        }
+    
+        .aspect {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    
+        .positive, .negative {
+            padding: 20px; /* Slightly larger padding for better readability */
+            border-radius: 5px;
+            margin-bottom: 20px; /* Match the margin from the review boxes */
+            font-size: 16px; /* Larger font for readability */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow to positive/negative boxes */
+        }
+    
+        .positive {
+            background-color: #D4EDDA; /* Light green background for positive aspects */
+            color: #155724; /* Darker text color for contrast */
+            border-left: 5px solid #2ECC71; /* Green border to match the review page style */
+        }
+    
+        .negative {
+            background-color: #F8D7DA; /* Light red background for negative aspects */
+            color: #721C24; /* Darker text color for contrast */
+            border-left: 5px solid #E74C3C; /* Red border to match the review page style */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>{{ hotel_name }}</h2>
+        <div id="summary">
+            {% if summary %}
+                {% for line in summary.split('\n') %}
+                    {% if 'Positive' in line %}
+                        <div class="positive">{{ line }}</div>
+                    {% elif 'Negative' in line %}
+                        <div class="negative">{{ line }}</div>
+                    {% else %}
+                        <div class="aspect">{{ line }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No summary available.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary for {{ hotel_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* background-color: #82D2D5; */
+            color: #1C3342;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #82D2D5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            color: #d2d7db;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        .logo {
+            max-height: 100px; /* Ensures the logo fits within the navbar */
+            width: 100px;
+            margin-right: 15px;
+        }
+
+        h1 {
+            color: #1C3342;
+            text-align: center;
+            margin: 0 auto;
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            flex: 1; /* Allow the heading to take available space */
+        }
+
+        #summary {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 90%;
+        }
+
+        #graphs-ratings-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .graph-container, #additional-star-ratings {
+            flex: 1;
+            text-align: center;
+            max-width: 48%;
+        }
+
+        .graph-container img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .positive, .negative, .aspect {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .positive {
+            background-color: #D4EDDA;
+            color: #155724;
+            border-left: 5px solid #2ECC71;
+        }
+
+        .negative {
+            background-color: #F8D7DA;
+            color: #721C24;
+            border-left: 5px solid #E74C3C;
+        }
+
+        .aspect {
+            font-family: 'Georgia', serif;
+            color: #1f5a84;
+            font-size: 18px;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .star {
+            color: #FFD700;
+            font-size: 1.2em;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .graph-container, #additional-star-ratings {
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+            </a>
+            <h1>Review Summaries</h1>
+        </div>
+    </header>
+
+    <div id="summary">
+        <div id="graphs-ratings-container">
+            <div class="graph-container">
+                <h3>Feature Distribution:</h3>
+                <img src="data:image/png;base64,{{ aspect_pie_chart_url }}" alt="Aspect Distribution">
+            </div>
+
+            <div id="additional-star-ratings">
+                <h3>Additional Ratings for {{ hotel_name }}:</h3>
+                <ul>
+                    {% for aspect, stars in additional_star_ratings.items() %}
+                        <li>{{ aspect.capitalize() }}:
+                            {% for i in range(stars) %}
+                                <span class="star">★</span>
+                            {% endfor %}
+                            {% for i in range(5 - stars) %}
+                                <span class="star">☆</span>
+                            {% endfor %}
+                            ({{ stars }}/5)
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <main>
+            {% if summary %}
+                {% for line in summary.split('\n') %}
+                    {% if 'Positive' in line %}
+                        <div class="positive">{{ line }}</div>
+                    {% elif 'Negative' in line %}
+                        <div class="negative">{{ line }}</div>
+                    {% else %}
+                        <div class="aspect"><b>{{ line }}</b></div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No summary available.</p>
+            {% endif %}
+        </main>
+    </div>
+</body>
+</html>

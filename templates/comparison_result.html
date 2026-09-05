@@ -1,0 +1,19 @@
+<h2>Comparison Between {{ hotel1 }} and {{ hotel2 }}</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Aspect</th>
+            <th>{{ hotel1 }}</th>
+            <th>{{ hotel2 }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for aspect, scores in comparison_data.items() %}
+        <tr>
+            <td>{{ aspect }}</td>
+            <td>{{ scores[0] }}</td>
+            <td>{{ scores[1] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

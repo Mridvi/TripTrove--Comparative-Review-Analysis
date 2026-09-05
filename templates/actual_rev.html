@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ hotel_name }} Reviews</title>
+</head>
+<body>
+    <h1>Reviews for {{ hotel_name }}</h1>
+    
+    <div>
+        {% for review, polarity in zip(reviews, polarities) %}
+        <div class="review">
+            <p>{{ review }}</p>
+            <p>Sentiment: {{ polarity }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

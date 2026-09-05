@@ -1,0 +1,873 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Fake Review Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Trip Trove - Fake Review Detection</h1>
+    <form action="/detect_fake_review" method="post">
+        <label for="review_text">Enter your review:</label><br>
+        <textarea id="review_text" name="review_text" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Detect Fake Review">
+    </form>
+    {% if result %}
+    <div id="result">
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+    <br>
+    <a href="/hotel_reviews">Click here to see hotel reviews</a>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Fake Review Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Trip Trove - Fake Review Detection</h1>
+    <form action="/detect_fake_review" method="post">
+        <label for="review_text">Enter your review:</label><br>
+        <textarea id="review_text" name="review_text" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Detect Fake Review">
+    </form>
+    {% if result %}
+    <div id="result">
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+    <br>
+    <a href="/hotel_reviews">Click here to see hotel reviews</a>
+</body>
+</html> -->
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Fake Review Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #DAE4E8;
+            color: #333;
+        }
+
+        header {
+            background-color: #82D2D5;
+            color: #82D2D5;
+            padding: 0px;
+            text-align: center;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #82D2D5;
+            padding: 1px 0;
+        }
+
+        .navbar-brand {
+            float: left;
+            display: block;
+            color: #1C3342;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .form-section {
+            background-color: #1C3342;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #1C3342;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #82D2D5;
+            color: #1C3342;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #fbfbfb;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        .btn{
+            color: #1C3342;
+
+
+        }
+
+        footer {
+            background-color: #82D2D5;
+            color: #1C3342;
+            padding: 1px 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .link-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .trove-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .truthful {
+            color: green; /* Change to the color you prefer for truthful reviews */
+        }
+
+        .deceptive {
+            color: red; /* Change to the color you prefer for deceptive reviews */
+        }
+        .navbar-brand {
+            /* ... other styles ... */
+            display: flex;
+            align-items: center; /* This will vertically center the items in the navbar-brand */
+        } 
+        .logo {
+            width: 120px; /* Adjust this value as needed to match the size of the emoji */
+            height: auto;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="navbar">
+
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+                <h3>Trip Trove</h3>
+            </a>
+        </div>
+    </header>
+    <main>
+        <section class="form-section">
+            <form action="/detect_fake_review" method="post">
+                <label for="review_text" style="color: #82D2D5;">Enter your review:</label><br>
+                <textarea id="review_text" name="review_text" rows="4" cols="50" placeholder="Write your review here..."></textarea><br>
+                <input type="submit" value="Detect Fake Review">
+            </form>
+            {% if result %}
+            <div id="result" class="{{ truthfulness }}">
+                <p>{{ result }}</p>
+            </div>
+            {% endif %}
+        </section>
+
+  
+
+        <section class="link-section">
+            <form action="/hotel_reviews">
+                <input style="background-color: #1C3342; color: #e9ebed; padding: 20px 50px; border: none; border-radius: 5px; cursor: pointer;" type="submit" value="Hotels  Reviews">
+            </form>
+        </section>
+        
+    </main>
+    <footer>
+        <p>&copy; 2024 Trip Trove. All rights reserved.</p>
+    </footer>
+</body>
+</html> -->
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Trove - Fake Review Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #DAE4E8;
+            color: #333;
+        }
+
+        header {
+            background-color: #82D2D5;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #82D2D5;
+            padding: 10px 20px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1C3342;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar-center {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar-center h3 {
+            font-family: 'Lobster', cursive;
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #1C3342;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .form-section {
+            background-color: #1C3342;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #1C3342;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #82D2D5;
+            color: #1C3342;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #fbfbfb;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        .btn {
+            color: #1C3342;
+        }
+
+        footer {
+            background-color: #82D2D5;
+            color: #1C3342;
+            padding: 10px 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .link-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .trove-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .truthful {
+            color: green;
+        }
+
+        .deceptive {
+            color: red;
+        }
+
+        /* Chatbot button styled as a message bubble */
+        .chatbot-btn {
+            background-color: #1C3342;
+            color: #FFFFFF;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: fixed;
+            bottom: 20px; /* Position at bottom */
+            right: 20px; /* Position at right */
+            transition: background-color 0.3s ease;
+            z-index: 1000; /* Ensure it stays on top */
+            animation: popUp 0.6s ease-out; /* Animation for pop up effect */
+        }
+
+        .chatbot-btn:hover {
+            background-color: #82D2D5;
+        }
+
+        .chatbot-icon {
+            width: 20px;
+            height: auto;
+        }
+
+        /* Pop-up animation for the chatbot button */
+        @keyframes popUp {
+            0% {
+                transform: scale(0); /* Starts small */
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1); /* Full size */
+                opacity: 1;
+            }
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+            </a>
+            <div class="navbar-center">
+                <h3>Trip Trove</h3>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="form-section">
+            <form action="/detect_fake_review" method="post">
+                <label for="review_text" style="color: #82D2D5;">Enter your review:</label><br>
+                <textarea id="review_text" name="review_text" rows="4" cols="50" placeholder="Write your review here..."></textarea><br>
+                <input type="submit" value="Detect Fake Review">
+            </form>
+            {% if result %}
+            <div id="result" class="{{ truthfulness }}">
+                <p>{{ result }}</p>
+            </div>
+            {% endif %}
+        </section>
+
+        <section class="link-section">
+            <form action="/hotel_reviews">
+                <input style="background-color: #1C3342; color: #e9ebed; padding: 20px 50px; border: none; border-radius: 5px; cursor: pointer;" type="submit" value="Hotels Reviews">
+            </form>
+
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div id="flashMessages">
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+
+            
+
+
+
+        </section>
+
+        
+        <div>
+            <button class="chatbot-btn" onclick="window.location.href='/chatbot'">
+                
+                🤖Personalised hotel recommendation
+            </button>
+        </div>
+
+
+    <script>
+        // Automatically hide flash messages after 3 seconds
+        setTimeout(function() {
+            var flashMessages = document.getElementById('flashMessages');
+            if (flashMessages) {
+                flashMessages.style.display = 'none';
+            }
+        }, 3000); // 3000ms = 3 seconds
+    </script>
+            
+
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Trip Trove. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
+
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Trip Trove - Fake Review Detection</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     <style>
+         body {
+             font-family: Arial, sans-serif;
+             margin: 0;
+             padding: 0;
+             background-color: #DAE4E8;
+             color: #333;
+             scroll-behavior: smooth; /* Smooth scrolling effect */
+         }
+
+         /* Sticky Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000; /* Keep it on top of everything */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.5); /* Transparent background */
+            color: white; /* White text color */
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: #82D2D5; /* Accent color on hover */
+        }
+ 
+         /* Hero Section */
+         .hero {
+             height: 100vh;
+             background-image: url("{{ url_for('static', filename='img/hero-bg-2.jpg') }}");
+             background-size: cover;
+             background-position: center;
+             position: relative;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             color: #ffffff;
+             text-align: center;
+         }
+ 
+         .hero h1 {
+             font-size: 48px;
+             font-family: 'Lobster', cursive;
+             letter-spacing: 1.5px;
+             margin: 0;
+         }
+ 
+         .hero p {
+             font-size: 18px;
+             margin: 10px 0 20px;
+         }
+ 
+         .hero a {
+             display: inline-block;
+             background-color: #82D2D5;
+             color: #1C3342;
+             padding: 10px 20px;
+             border-radius: 5px;
+             text-decoration: none;
+             font-weight: bold;
+             transition: background-color 0.3s ease;
+         }
+ 
+         .hero a:hover {
+             background-color: #ffffff;
+         }
+ 
+         /* Scroll Indicator */
+         .scroll-indicator {
+             position: absolute;
+             bottom: 20px;
+             font-size: 24px;
+             color: #ffffff;
+             animation: bounce 1.5s infinite;
+             cursor: pointer;
+         }
+ 
+         @keyframes bounce {
+             0%, 100% {
+                 transform: translateY(0);
+             }
+             50% {
+                 transform: translateY(-10px);
+             }
+         }
+ 
+         main {
+             padding: 20px;
+         }
+ 
+         .form-section {
+             padding: 60px;
+             background-color: #1C3342;
+             color: #ffffff;
+             margin-bottom: 20px;
+             border-radius: 8px;
+             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+             margin-top: 90px;
+             margin-bottom: 90px;  
+             width: 700px;  
+         }
+ 
+         .form-section label {
+             color: #82D2D5;
+             font-weight: bold;
+         }
+ 
+         textarea {
+             width: 100%;
+             padding: 10px;
+             margin: 10px 0;
+             border: 1px solid #82D2D5;
+             border-radius: 5px;
+             resize: none;
+         }
+ 
+         input[type="submit"] {
+             padding: 10px 20px;
+             background-color: #82D2D5;
+             color: #1C3342;
+             border: none;
+             border-radius: 5px;
+             cursor: pointer;
+             font-weight: bold;
+         }
+ 
+         input[type="submit"]:hover {
+             background-color: #ffffff;
+         }
+ 
+         .link-section {
+             text-align: center;
+             margin-top: 40px;
+         }
+ 
+         .link-section input {
+             padding: 10px 30px;
+             background-color: #1C3342;
+             color: #ffffff;
+             border: none;
+             border-radius: 5px;
+             font-size: 16px;
+             cursor: pointer;
+             font-weight: bold;
+         }
+ 
+         .link-section input:hover {
+             background-color: #82D2D5;
+             color: #1C3342;
+             
+         }
+ 
+         footer {
+             background-color: #82D2D5;
+             color: #1C3342;
+             padding: 10px 20px;
+             text-align: center;
+         }
+
+                 /* Chatbot button styled as a message bubble */
+        .chatbot-btn {
+            background-color: #1C3342;
+            color: #FFFFFF;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: fixed;
+            bottom: 20px; /* Position at bottom */
+            right: 20px; /* Position at right */
+            transition: background-color 0.3s ease;
+            z-index: 1000; /* Ensure it stays on top */
+            animation: popUp 0.6s ease-out; /* Animation for pop up effect */
+        }
+
+        .chatbot-btn:hover {
+            background-color: #82D2D5;
+        }
+
+        .chatbot-icon {
+            width: 20px;
+            height: auto;
+        }
+
+        /* Pop-up animation for the chatbot button */
+        @keyframes popUp {
+            0% {
+                transform: scale(0); /* Starts small */
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1); /* Full size */
+                opacity: 1;
+            }
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        #typing-text {
+    font-size: 48px; /* Adjust to match your current font size */
+    font-family: 'Lobster', cursive; /* Match the current font-family */
+    letter-spacing: 1.5px;
+    color: #ffffff; /* Ensure the color is visible on the background */
+    /* background: rgba(28, 51, 66, 0.7);  Add a semi-transparent background */
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: inline-block;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+         
+     </style>
+ </head>
+ <body>
+     <!-- Hero Section -->
+     <header>
+            <!-- Navbar -->
+    <div class="navbar">
+        <a href="#" class="navbar-brand">Trip Trove</a>
+        <div class="navbar-links">
+            <a href="#form-section">Review Detection</a>
+            <a href="/hotel_reviews">Hotels Reviews</a>
+            <a href="chatbot">Chatbot</a>
+        </div>
+    </div>
+
+        
+         <div class="hero">
+            <!-- <div class="navbar">
+
+                <a class="navbar-brand" href="#">
+                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Trip Trove Logo" class="logo">
+                    <h3>Trip Trove</h3>
+                </a>
+            </div> -->
+             <div>
+                <h1>
+                    Welcome to <span id="typing-text"></span>
+                </h1>
+                
+                 <p><i>Discover the truth in reviews. Uncover the best hotels. </i></p>
+                 <a href="#form-section">Get Started</a>
+             </div>
+             <div class="scroll-indicator">⬇</div>
+         </div>
+     </header>
+ 
+     <main>
+         <!-- Form Section -->
+         <section id="form-section" class="form-section">
+             <form action="/detect_fake_review" method="post">
+                 <label for="review_text">Enter your review:</label><br>
+                 <textarea id="review_text" name="review_text" rows="4" placeholder="Write your review here..."></textarea><br>
+                 <input type="submit" value="Detect Fake Review">
+             </form>
+             {% if result %}
+             <div id="result" class="{{ truthfulness }}">
+                 <p>{{ result }}</p>
+             </div>
+             {% endif %}
+         </section>
+ 
+         <!-- Link Section -->
+         <section class="link-section">
+             <form action="/hotel_reviews">
+                 <input type="submit" value="Hotel Reviews">
+             </form>
+         </section>
+         <div>
+            <button class="chatbot-btn" onclick="window.location.href='/chatbot'">
+                
+                🤖Personalised hotel recommendation
+            </button>
+        </div>
+     </main>
+ 
+     <footer>
+         <p>&copy; 2024 Trip Trove. All rights reserved.</p>
+     </footer>
+ </body>
+ <script>
+    const text = "Trip Trove";
+    const typingTextElement = document.getElementById("typing-text");
+
+    let index = 0;
+    let isDeleting = false;
+
+    function type() {
+        const speed = isDeleting ? 40 : 90; // Typing speed (slower when typing, faster when deleting)
+
+        if (isDeleting) {
+            typingTextElement.textContent = text.slice(0, index--); // Remove characters
+        } else {
+            typingTextElement.textContent = text.slice(0, index++); // Add characters
+        }
+
+        // When finished typing or deleting
+        if (!isDeleting && index === text.length) {
+            setTimeout(() => (isDeleting = true), 1000); // Pause before deleting
+        } else if (isDeleting && index === 0) {
+            isDeleting = false; // Switch to typing mode
+        }
+
+        setTimeout(type, speed);
+    }
+
+    // Start the typing animation
+    type();
+</script>
+
+ </html>
+ 
