@@ -26,18 +26,31 @@ Summarization & Comparison
       ↓
 Hotel Recommendations
 ```
-
 ## 📊 Dataset
 
-The dataset contains **1,600 reviews from 20 hotels**, consisting of **800 truthful and 800 deceptive reviews**.
+The project uses a dataset of **1,600 hotel reviews collected from 20 different hotels**, equally divided into **800 truthful and 800 deceptive reviews**. The dataset was used to train and evaluate the fake review detection model.
 
-Reviews are preprocessed using **tokenization, stopword removal, and lemmatization**.
+Each review contains information such as:
+- **Hotel Name**
+- **Sentiment Polarity**
+- **Review Source**
+- **Relevant Metadata**
+
+### 🔄 Data Preprocessing
+
+The reviews undergo several preprocessing steps before analysis:
+
+**HTML & Symbol Removal → Tokenization → Lowercasing → Stopword Removal → Lemmatization**
+
+This helps remove noise and convert the reviews into a consistent format suitable for machine learning and NLP analysis.
 
 ## 🤖 Machine Learning
 
-Trip Trove uses **TF-IDF with a Support Vector Machine (SVM)** to classify reviews as deceptive or truthful.
+Trip Trove uses **TF-IDF feature extraction and a Support Vector Machine (SVM)** to classify reviews as **truthful or deceptive**.
 
-### 📈 Performance
+The research also evaluated several other machine learning and deep learning approaches, including **LSTM, Bi-LSTM, CNN, CNN-LSTM, GRU-CNN, CNN-BiLSTM, Logistic Regression, and Random Forest**. Among the evaluated models, **SVM achieved the strongest overall accuracy**.
+
+### 📈 Model Performance
 
 | Metric | Score |
 |---|---:|
@@ -45,6 +58,8 @@ Trip Trove uses **TF-IDF with a Support Vector Machine (SVM)** to classify revie
 | **Precision** | **89.71%** |
 | **Recall** | **89.69%** |
 | **F1 Score** | **89.69%** |
+
+The model demonstrated consistent performance in distinguishing deceptive reviews from genuine reviews, helping ensure that subsequent review analysis focuses on more reliable content.
 
 ## 🛠️ Tech Stack
 
@@ -64,24 +79,27 @@ pip install -r requirements.txt
 python app.py
 ```
 
+
 ## 📈 Results
 
-The fake-review detection model achieved **90.54% accuracy**, while the comparative analysis achieved **91.08% accuracy**.
+The fake-review detection model achieved **90.54% accuracy**, with **89.71% precision, 89.69% recall, and 89.69% F1-score**.
+
+The comparative analysis component achieved **91.08% accuracy**, demonstrating the effectiveness of combining review analysis with hotel comparison.
 
 ## ⚠️ Limitations
 
-The system may require updates when review sources, languages, or hotel-related aspects change.
-
-Scaling the system for real-time analysis can also increase computational requirements.
+- **Generalization:** Models trained on a specific domain or language may not perform equally well across different hotel domains, languages, or types of reviews.
+- **Scalability & Real-Time Processing:** Processing large volumes of reviews and continuously updating models can increase computational requirements, making real-time detection challenging.
+- **Dynamic Content:** Customer preferences and important hotel aspects can change over time. The system therefore requires periodic updates to aspect keywords and training data.
 
 ## 🔮 Future Improvements
 
-- Real-time fake review detection
-- Reviewer behavior analysis
-- Interactive hotel maps
-- Improved aspect and sentiment analysis
-- More advanced recommendation capabilities
+- **Reviewer Behavior Analysis** — Identify suspicious patterns using review frequency, language patterns, and other reviewer behavior.
+- **Interactive Maps** — Add location-based maps showing hotels and nearby points of interest.
+- **Real-Time Fake Review Detection** — Develop streaming-based monitoring to detect suspicious reviews as they are submitted.
+- **Improved NLP Models** — Enhance aspect and sentiment analysis using newer NLP and deep learning approaches.
 
+  
 ## 📄 Research Paper
 
 **“Trip Trove: Comparative Review Analysis”**
